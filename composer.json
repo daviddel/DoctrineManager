@@ -1,0 +1,28 @@
+{
+    "name": "soa-commerce/doctrine-manager",
+    "type": "library",
+    "description": "Manager Doctrine Objects",
+    "keywords": [],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Delevoye",
+            "email": "daviddelevoye@gmail.com"
+        }
+    ],
+    "require": {
+        "doctrine/common": ">=2.0",
+        "symfony/dependency-injection": ">=2.2"
+    },
+    "suggest": {
+        "doctrine/orm": "to use the extensions with the ORM"
+    },
+    "autoload": {
+        "psr-0": { "Doctrine\\Manager\\": "lib/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
