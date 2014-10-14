@@ -25,7 +25,7 @@ class ModelManager implements ModelManagerInterface
     /**
      * @var \Doctrine\Common\Persistence\ObjectRepository
      */
-    protected $repository;
+    private $repository;
 
     /**
      * @param ContainerInterface $container
