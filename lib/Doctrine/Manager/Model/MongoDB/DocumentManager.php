@@ -2,9 +2,9 @@
 
 namespace Doctrine\Manager\Model\MongoDB;
 
-use Doctrine\Manager\Model\ModelManager;
+use Doctrine\Manager\Model\AbstractManager;
 
-class DocumentManager extends ModelManager
+class DocumentManager extends AbstractManager
 {
 	/**
 	 * @return \Doctrine\ODM\MongoDB\DocumentManager

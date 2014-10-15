@@ -2,9 +2,9 @@
 
 namespace Doctrine\Manager\Model\ORM;
 
-use Doctrine\Manager\Model\ModelManager;
+use Doctrine\Manager\Model\AbstractManager;
 
-class EntityManager extends ModelManager
+class EntityManager extends AbstractManager
 {
 	/**
 	 * @return \Doctrine\ORM\EntityManager
