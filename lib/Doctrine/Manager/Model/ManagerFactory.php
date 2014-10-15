@@ -42,7 +42,7 @@ class ManagerFactory implements ManagerFactoryInterface
             'Doctrine\\Manager\\Mapping\\Annotation\\ModelManager');
 
         if (!$annotation || !($managerClass = $annotation->class)) {
-            $managerClass = 'Doctrine\\Manager\\Model\\ModelManager';
+            throw new \Exception(sprintf('Manager is not defined for class "%s"', basename($class)));
         }
         $manager = new $managerClass($class, $objectManagerName, $this->container);
 
