@@ -41,13 +41,10 @@ class ManagerFactory implements ManagerFactoryInterface
             new \ReflectionClass($class),
             'Doctrine\\Manager\\Mapping\\Annotation\\ModelManager');
 
-        /** @todo $objectManager */
-        $objectManager = $this->container->get('doctrine')->getManager($objectManagerName);
-
         if (!$annotation || !($managerClass = $annotation->class)) {
             $managerClass = 'Doctrine\\Manager\\Model\\ModelManager';
         }
-        $manager = new $managerClass($class, $objectManager, $this->container);
+        $manager = new $managerClass($class, $objectManagerName, $this->container);
 
         $this->managers[$class] = $manager;
 

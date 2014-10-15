@@ -13,9 +13,9 @@ class ModelManager implements ModelManagerInterface
     protected $container;
 
     /**
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var string
      */
-    protected $om;
+    protected $omName;
 
     /**
      * @var string
@@ -23,19 +23,24 @@ class ModelManager implements ModelManagerInterface
     protected $class;
 
     /**
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
+    protected $om;
+
+    /**
      * @var \Doctrine\Common\Persistence\ObjectRepository
      */
     private $repository;
 
     /**
-     * @param ContainerInterface $container
      * @param string $class
-     * @param ObjectManager $om
+     * @param string $omName
+     * @param ContainerInterface $container
      */
-    public function __construct($class, ObjectManager $om, ContainerInterface $container = null)
+    public function __construct($class, $omName = 'default', ContainerInterface $container = null)
     {
         $this->class = $class;
-        $this->om = $om;
+        $this->omName = $omName;
         $this->container = $container;
     }
 
@@ -44,7 +49,7 @@ class ModelManager implements ModelManagerInterface
      */
     public function getRepository()
     {
-        return $this->repository ?: $this->repository = $this->om->getRepository($this->class);
+        return $this->repository ?: $this->repository = $this->getObjectManager()->getRepository($this->class);
     }
 
     /**
@@ -76,8 +81,8 @@ class ModelManager implements ModelManagerInterface
      */
     protected function doSave($object)
     {
-        $this->om->persist($object);
-        $this->om->flush();
+        $this->getObjectManager()->persist($object);
+        $this->getObjectManager()->flush();
     }
 
     /**
@@ -85,9 +90,14 @@ class ModelManager implements ModelManagerInterface
      */
     protected function doDelete($object)
     {
-        $this->om->remove($object);
-        $this->om->flush();
+        $this->getObjectManager()->remove($object);
+        $this->getObjectManager()->flush();
     }
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
+    abstract public function getObjectManager();
 
     /**
      * @param $method
@@ -98,7 +108,7 @@ class ModelManager implements ModelManagerInterface
     {
         if (method_exists($this->getRepository(), $method))
             return call_user_func_array(array($this->getRepository(), $method), $args);
-        if (method_exists($this->om, $method))
-            return call_user_func_array(array($this->om, $method), $args);
+        if (method_exists($this->getObjectManager(), $method))
+            return call_user_func_array(array($this->getObjectManager(), $method), $args);
     }
 }
