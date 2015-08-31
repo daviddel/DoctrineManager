@@ -76,6 +76,26 @@ abstract class AbstractManager implements ModelManagerInterface
     }
 
     /**
+     * @return object
+     */
+    public function findOrCreate($criteria)
+    {
+        if (!is_array($criteria)) {
+            $meta = $this->getObjectManager()->getClassMetadata($this->class);
+            $identifier = $meta->getSingleIdentifierFieldName();
+
+            $criteria = array($identifier => $criteria);
+        }
+
+        $object = $this->getObjectManager()->findOneBy($criteria);
+        if (!is_object($object)) {
+            $object = $this->create();
+        }
+
+        return $object;
+    }
+
+    /**
      * @param object $object
      */
     protected function doSave($object)
