@@ -87,7 +87,7 @@ abstract class AbstractManager implements ModelManagerInterface
             $criteria = array($identifier => $criteria);
         }
 
-        $object = $this->getObjectManager()->findOneBy($criteria);
+        $object = $this->getRepository()->findOneBy($criteria);
         if (!is_object($object)) {
             $object = $this->create();
         }
