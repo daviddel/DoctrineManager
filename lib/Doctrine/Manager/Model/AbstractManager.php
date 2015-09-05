@@ -84,6 +84,7 @@ abstract class AbstractManager implements ModelManagerInterface
     }
 
     /**
+     * @param mixed $criteria
      * @return object
      */
     public function findOrCreate($criteria)

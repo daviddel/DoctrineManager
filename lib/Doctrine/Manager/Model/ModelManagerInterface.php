@@ -4,6 +4,16 @@ namespace Doctrine\Manager\Model;
 
 interface ModelManagerInterface
 {
+    /**
+     * @return string
+     */
+    function getRealClass();
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
+    function getObjectManager();
+
 	/**
      * @return \Doctrine\Common\Persistence\ObjectRepository
      */
@@ -23,4 +33,10 @@ interface ModelManagerInterface
      * @param object $object
      */
 	function delete($object);
+
+    /**
+     * @param mixed $criteria
+     * @return object
+     */
+    function findOrCreate($criteria);
 } 
