@@ -44,6 +44,14 @@ abstract class AbstractManager implements ModelManagerInterface
     }
 
     /**
+     * @return string
+     */
+    public function getRealClass()
+    {
+        return \Doctrine\Common\Util\ClassUtils::getRealClass($this->class);
+    }
+
+    /**
      * @return \Doctrine\Common\Persistence\ObjectRepository
      */
     public function getRepository()
