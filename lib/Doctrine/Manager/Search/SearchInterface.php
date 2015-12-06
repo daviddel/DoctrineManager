@@ -65,12 +65,26 @@ interface SearchInterface
 
     /**
      * @param string $key
+     *
+     * @return boolean
+     */
+    public function hasCriterion($key);
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getCriterion($key);
+
+    /**
+     * @param string $key
      * @param mixed  $value
      */
-    public function addCriteria($key, $value);
+    public function addCriterion($key, $value);
 
     /**
      * @param string $key
      */
-    public function removeCriteria($key);
+    public function removeCriterion($key);
 }

@@ -130,12 +130,32 @@ class Search implements SearchInterface
     }
 
     /**
+     * @param string $key
+     *
+     * @return boolean
+     */
+    public function hasCriterion($key)
+    {
+        return isset($this->criteria[$key]);
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getCriterion($key)
+    {
+        return $this->criteria[$key];
+    }
+
+    /**
      * @param string
      * @param mixed
      *
      * @return Search
      */
-    public function addCriteria($key, $value)
+    public function addCriterion($key, $value)
     {
         $this->criteria[$key] = $value;
 
@@ -147,7 +167,7 @@ class Search implements SearchInterface
      *
      * @return Search
      */
-    public function removeCriteria($key)
+    public function removeCriterion($key)
     {
         unset($this->criteria[$key]);
 
