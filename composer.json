@@ -1,5 +1,5 @@
 {
-    "name": "soa-commerce/doctrine-manager",
+    "name": "daviddel/doctrine-manager",
     "type": "library",
     "description": "Manager Doctrine Objects",
     "keywords": [],
