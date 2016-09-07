@@ -13,5 +13,7 @@ interface ModelRepositoryInterface extends ObjectRepository
 
     public function buildCriteria(SearchInterface $search, $qb);
 
+    public function buildReverseCriteria(SearchInterface $search, $qb);
+
     public function buildSort(SearchInterface $search, $qb);
 }

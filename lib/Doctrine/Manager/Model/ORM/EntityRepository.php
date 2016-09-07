@@ -21,12 +21,10 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
 
     public function getQueryBuilder(SearchInterface $search)
     {
-        if (!$this->alias) {
-            $this->alias = strtolower(substr(basename($this->_class), 0, 1));
-        }
+        $qb = $this->createQueryBuilder($this->getAlias());
 
-        $qb = $this->createQueryBuilder($this->alias);
         $this->buildCriteria($search, $qb);
+        $this->buildReverseCriteria($search, $qb);
         $this->buildSort($search, $qb);
 
         if ($search->getNb()) {
@@ -65,6 +63,32 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
         }
     }
 
+    public function buildReverseCriteria(SearchInterface $search, $qb)
+    {
+        if ($qb instanceof QueryBuilder) {
+            foreach ($search->getReverseCriteria() as $key => $value) {
+                if (!(strpos($key, '.') !== false)) {
+                    $key = $this->alias.'.'.$key;
+                }
+                $param = str_replace('.', '_', $key);
+
+                if ($value === null) {
+                    $qb->andWhere($qb->expr()->isNotNull($key));
+                } elseif (is_array($value)) {
+                    $qb->andWhere($qb->expr()->notIn($key, ':'.$param));
+                } else {
+                    $qb->andWhere($qb->expr()->neq($key, ':'.$param));
+                }
+
+                if (is_object($value)) {
+                    $qb->setParameter($param, $value->getId());
+                } else {
+                    $qb->setParameter($param, $value);
+                }
+            }
+        }
+    }
+
     public function buildSort(SearchInterface $search, $qb)
     {
         if ($qb instanceof QueryBuilder) {
@@ -72,5 +96,18 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
                 $qb->addOrderBy($this->alias.'.'.$sortField, $sortDirection);
             }
         }
+    }
+
+    protected function getShortClassName()
+    {
+        $metadata = $this->getClassMetadata();
+        $refl = $metadata->getReflectionClass();
+
+        return $refl->getShortName();
+    }
+
+    protected function getAlias()
+    {
+        return $this->alias ?: $this->alias = strtolower(substr(basename($this->getShortClassName()), 0, 1));
     }
 }
