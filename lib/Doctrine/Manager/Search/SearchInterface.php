@@ -87,41 +87,4 @@ interface SearchInterface
      * @param string $key
      */
     public function removeCriterion($key);
-
-    /**
-     * @param array $criteria
-     *
-     * @return SearchInterface
-     */
-    public function setReverseCriteria(array $criteria);
-
-    /**
-     * @return array
-     */
-    public function getReverseCriteria();
-
-    /**
-     * @param string $key
-     *
-     * @return boolean
-     */
-    public function hasReverseCriterion($key);
-
-    /**
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function getReverseCriterion($key);
-
-    /**
-     * @param string $key
-     * @param mixed  $value
-     */
-    public function addReverseCriterion($key, $value);
-
-    /**
-     * @param string $key
-     */
-    public function removeReverseCriterion($key);
 }

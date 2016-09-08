@@ -25,11 +25,6 @@ class Search implements SearchInterface
     protected $criteria = array();
 
     /**
-     * @var array
-     */
-    protected $reverseCriteria = array();
-
-    /**
      * @param int
      *
      * @return Search
@@ -175,71 +170,6 @@ class Search implements SearchInterface
     public function removeCriterion($key)
     {
         unset($this->criteria[$key]);
-
-        return $this;
-    }
-
-    /**
-     * @param array
-     *
-     * @return Search
-     */
-    public function setReverseCriteria(array $criteria)
-    {
-        $this->reverseCriteria = $criteria;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getReverseCriteria()
-    {
-        return $this->reverseCriteria;
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return boolean
-     */
-    public function hasReverseCriterion($key)
-    {
-        return isset($this->reverseCriteria[$key]);
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function getReverseCriterion($key)
-    {
-        return $this->reverseCriteria[$key];
-    }
-
-    /**
-     * @param string
-     * @param mixed
-     *
-     * @return Search
-     */
-    public function addReverseCriterion($key, $value)
-    {
-        $this->reverseCriteria[$key] = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param string
-     *
-     * @return Search
-     */
-    public function removeReverseCriterion($key)
-    {
-        unset($this->reverseCriteria[$key]);
 
         return $this;
     }
