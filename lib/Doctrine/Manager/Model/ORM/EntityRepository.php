@@ -24,7 +24,6 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
         $qb = $this->createQueryBuilder($this->getAlias());
 
         $this->buildCriteria($search, $qb);
-        $this->buildReverseCriteria($search, $qb);
         $this->buildSort($search, $qb);
 
         if ($search->getNb()) {
