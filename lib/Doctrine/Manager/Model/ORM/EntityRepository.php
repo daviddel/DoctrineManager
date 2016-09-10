@@ -106,7 +106,9 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
             }
         }
 
-        $qb->andWhere($criterion)->setParameter($param, $value);
+        if (isset($criterion)) {
+            $qb->andWhere($criterion)->setParameter($param, $value);
+        }
     }
 
     public function buildSort(SearchInterface $search, $qb)
