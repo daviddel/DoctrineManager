@@ -38,15 +38,21 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
 
     public function buildCriteria(SearchInterface $search, $qb)
     {
-        if ($qb instanceof QueryBuilder) {
-            foreach ($search->getCriteria() as $key => $value) {
-                $this->buildCriterion($qb, $key, $value);
-            }
+        if (!$qb instanceof QueryBuilder) {
+            return null;
+        }
+
+        foreach ($search->getCriteria() as $key => $value) {
+            $this->buildCriterion($qb, $key, $value);
         }
     }
 
     protected function buildCriterion($qb, $key, $value)
     {
+        if (!$qb instanceof QueryBuilder) {
+            return null;
+        }
+
         if (!(strpos($key, '.') !== false)) {
             $key = $this->alias . '.' . $key;
         }
@@ -105,10 +111,12 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
 
     public function buildSort(SearchInterface $search, $qb)
     {
-        if ($qb instanceof QueryBuilder) {
-            foreach ($search->getSort() as $sortField => $sortDirection) {
-                $qb->addOrderBy($this->alias.'.'.$sortField, $sortDirection);
-            }
+        if (!$qb instanceof QueryBuilder) {
+            return null;
+        }
+
+        foreach ($search->getSort() as $sortField => $sortDirection) {
+            $qb->addOrderBy($this->alias.'.'.$sortField, $sortDirection);
         }
     }
 
