@@ -157,7 +157,7 @@ class Search implements SearchInterface
      */
     public function addCriterion($key, $value)
     {
-        $this->criteria[$key] = $value;
+        $this->criteria[$key][] = $value;
 
         return $this;
     }
