@@ -60,54 +60,54 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
 
         if (!is_array($value)) {
             $criterion = $qb->expr()->eq($key, $param);
-        } else {
-            $operator = key($value);
-            $value = current($value);
-
-            switch ($operator) {
-                case ModelRepositoryInterface::OPERATOR_EQ:
-                    if ($value !== null) {
-                        $criterion = $qb->expr()->eq($key, $param);
-                    } else {
-                        $criterion = $qb->expr()->isNull($key);
-                    }
-                    break;
-                case ModelRepositoryInterface::OPERATOR_NEQ:
-                    if ($value !== null) {
-                        $criterion = $qb->expr()->neq($key, $param);
-                    } else {
-                        $criterion = $qb->expr()->isNotNull($key);
-                    }
-                    break;
-                case ModelRepositoryInterface::OPERATOR_IN:
-                    $criterion = $qb->expr()->in($key, $param);
-                    break;
-                case ModelRepositoryInterface::OPERATOR_NIN:
-                    $criterion = $qb->expr()->notIn($key, $param);
-                    break;
-                case ModelRepositoryInterface::OPERATOR_LIKE:
-                    $criterion = $qb->expr()->like($key, $param);
-                    break;
-                case ModelRepositoryInterface::OPERATOR_NLIKE:
-                    $criterion = $qb->expr()->notLike($key, $param);
-                    break;
-                case ModelRepositoryInterface::OPERATOR_GT:
-                    $criterion = $qb->expr()->gt($key, $param);
-                    break;
-                case ModelRepositoryInterface::OPERATOR_GTE:
-                    $criterion = $qb->expr()->gte($key, $param);
-                    break;
-                case ModelRepositoryInterface::OPERATOR_LT:
-                    $criterion = $qb->expr()->lt($key, $param);
-                    break;
-                case ModelRepositoryInterface::OPERATOR_LTE:
-                    $criterion = $qb->expr()->lte($key, $param);
-                    break;
-            }
-        }
-
-        if (isset($criterion)) {
             $qb->andWhere($criterion)->setParameter($param, $value);
+        } else {
+            foreach ($value as $operator => $cValue) {
+                switch ($operator) {
+                    case ModelRepositoryInterface::OPERATOR_EQ:
+                        if ($cValue !== null) {
+                            $criterion = $qb->expr()->eq($key, $param);
+                        } else {
+                            $criterion = $qb->expr()->isNull($key);
+                        }
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_NEQ:
+                        if ($cValue !== null) {
+                            $criterion = $qb->expr()->neq($key, $param);
+                        } else {
+                            $criterion = $qb->expr()->isNotNull($key);
+                        }
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_IN:
+                        $criterion = $qb->expr()->in($key, $param);
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_NIN:
+                        $criterion = $qb->expr()->notIn($key, $param);
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_LIKE:
+                        $criterion = $qb->expr()->like($key, $param);
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_NLIKE:
+                        $criterion = $qb->expr()->notLike($key, $param);
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_GT:
+                        $criterion = $qb->expr()->gt($key, $param);
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_GTE:
+                        $criterion = $qb->expr()->gte($key, $param);
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_LT:
+                        $criterion = $qb->expr()->lt($key, $param);
+                        break;
+                    case ModelRepositoryInterface::OPERATOR_LTE:
+                        $criterion = $qb->expr()->lte($key, $param);
+                        break;
+                }
+
+                if (isset($criterion)) {
+                    $qb->andWhere($criterion)->setParameter($param, $cValue);
+                }
+            }
         }
     }
 
