@@ -3,6 +3,7 @@
 namespace Doctrine\Manager\Model\ORM;
 
 use Doctrine\Manager\Model\ModelRepositoryInterface;
+use Doctrine\Manager\Model\Operator;
 use Doctrine\Manager\Search\SearchInterface;
 use Doctrine\Manager\Search\SearchTrait;
 use Doctrine\ORM\EntityRepository as BaseEntityRepository;
@@ -67,42 +68,42 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
             $value = current($value);
 
             switch ($operator) {
-                case ModelRepositoryInterface::OPERATOR_EQ:
+                case Operator::OPERATOR_EQ:
                     if ($value !== null) {
                         $criterion = $qb->expr()->eq($key, $param);
                     } else {
                         $criterion = $qb->expr()->isNull($key);
                     }
                     break;
-                case ModelRepositoryInterface::OPERATOR_NEQ:
+                case Operator::OPERATOR_NEQ:
                     if ($value !== null) {
                         $criterion = $qb->expr()->neq($key, $param);
                     } else {
                         $criterion = $qb->expr()->isNotNull($key);
                     }
                     break;
-                case ModelRepositoryInterface::OPERATOR_IN:
+                case Operator::OPERATOR_IN:
                     $criterion = $qb->expr()->in($key, $param);
                     break;
-                case ModelRepositoryInterface::OPERATOR_NIN:
+                case Operator::OPERATOR_NIN:
                     $criterion = $qb->expr()->notIn($key, $param);
                     break;
-                case ModelRepositoryInterface::OPERATOR_LIKE:
+                case Operator::OPERATOR_LIKE:
                     $criterion = $qb->expr()->like($key, $param);
                     break;
-                case ModelRepositoryInterface::OPERATOR_NLIKE:
+                case Operator::OPERATOR_NLIKE:
                     $criterion = $qb->expr()->notLike($key, $param);
                     break;
-                case ModelRepositoryInterface::OPERATOR_GT:
+                case Operator::OPERATOR_GT:
                     $criterion = $qb->expr()->gt($key, $param);
                     break;
-                case ModelRepositoryInterface::OPERATOR_GTE:
+                case Operator::OPERATOR_GTE:
                     $criterion = $qb->expr()->gte($key, $param);
                     break;
-                case ModelRepositoryInterface::OPERATOR_LT:
+                case Operator::OPERATOR_LT:
                     $criterion = $qb->expr()->lt($key, $param);
                     break;
-                case ModelRepositoryInterface::OPERATOR_LTE:
+                case Operator::OPERATOR_LTE:
                     $criterion = $qb->expr()->lte($key, $param);
                     break;
             }

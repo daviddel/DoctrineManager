@@ -32,6 +32,11 @@ abstract class AbstractManager implements ModelManagerInterface
     private $repository;
 
     /**
+     * @var \Doctrine\Manager\Model\Elastic\SearchRepository
+     */
+    protected $searchRepository;
+
+    /**
      * @param string $class
      * @param string $omName
      * @param ContainerInterface $container
@@ -57,6 +62,14 @@ abstract class AbstractManager implements ModelManagerInterface
     public function getRepository()
     {
         return $this->repository ?: $this->repository = $this->getObjectManager()->getRepository($this->class);
+    }
+
+    /**
+     * @return \CoreBundle\Elastic\Repository\SearchRepository
+     */
+    public function getSearchRepository()
+    {
+        return $this->searchRepository ?: $this->searchRepository = $this->container->get('fos_elastica.manager')->getRepository($this->class);
     }
 
     /**
