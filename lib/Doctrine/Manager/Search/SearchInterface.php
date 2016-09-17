@@ -80,6 +80,14 @@ interface SearchInterface
     /**
      * @param string $key
      * @param mixed  $value
+     *
+     * @return mixed
+     */
+    public function setCriterion($key, $value);
+
+    /**
+     * @param string $key
+     * @param mixed  $value
      */
     public function addCriterion($key, $value);
 

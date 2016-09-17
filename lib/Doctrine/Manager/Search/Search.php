@@ -25,7 +25,7 @@ class Search implements SearchInterface
     protected $criteria = array();
 
     /**
-     * @param int
+     * @param int $nb
      *
      * @return Search
      */
@@ -45,7 +45,7 @@ class Search implements SearchInterface
     }
 
     /**
-     * @param int
+     * @param int $page
      *
      * @return Search
      */
@@ -65,7 +65,7 @@ class Search implements SearchInterface
     }
 
     /**
-     * @param array
+     * @param array $sort
      *
      * @return Search
      */
@@ -85,8 +85,8 @@ class Search implements SearchInterface
     }
 
     /**
-     * @param string
-     * @param string
+     * @param string $sort
+     * @param string $direction
      *
      * @return Search
      */
@@ -98,7 +98,7 @@ class Search implements SearchInterface
     }
 
     /**
-     * @param string
+     * @param string $sort
      *
      * @return Search
      */
@@ -110,7 +110,7 @@ class Search implements SearchInterface
     }
 
     /**
-     * @param array
+     * @param array $criteria
      *
      * @return Search
      */
@@ -150,8 +150,21 @@ class Search implements SearchInterface
     }
 
     /**
-     * @param string
-     * @param mixed
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return Search
+     */
+    public function setCriterion($key, $value)
+    {
+        $this->criteria[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
      *
      * @return Search
      */
@@ -163,7 +176,7 @@ class Search implements SearchInterface
     }
 
     /**
-     * @param string
+     * @param string $key
      *
      * @return Search
      */
