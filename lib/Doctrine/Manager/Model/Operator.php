@@ -31,6 +31,6 @@ class Operator
     {
         $oClass = new \ReflectionClass(__CLASS__);
 
-        return $oClass->getConstants();
+        return array_values($oClass->getConstants());
     }
 }

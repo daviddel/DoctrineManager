@@ -82,6 +82,9 @@ class SearchRepository extends BaseRepository
                 if (!is_array($values)) {
                     $this->buildSearchFilterCriterion($bool, $key, $values);
                     $nbFilters++;
+                } elseif(in_array(key($values), Operator::getOperators(), true)) {
+                    $this->buildSearchFilterCriterion($bool, $key, $values);
+                    $nbFilters++;
                 } else {
                     foreach ($values as $value) {
                         $this->buildSearchFilterCriterion($bool, $key, $value);
@@ -170,6 +173,9 @@ class SearchRepository extends BaseRepository
                 if (!is_array($values)) {
                     $this->buildSearchQueryCriterion($bool, $key, $values);
                     $nbQueries++;
+                } elseif(in_array(key($values), Operator::getOperators(), true)) {
+                    $this->buildSearchQueryCriterion($bool, $key, $values);
+                    $nbQueries++;
                 } else {
                     foreach ($values as $value) {
                         $this->buildSearchQueryCriterion($bool, $key, $value);
@@ -244,6 +250,9 @@ class SearchRepository extends BaseRepository
         if ($bool instanceof BoolFilter) {
             foreach ($search->getAggsCriteria() as $key => $values) {
                 if (!is_array($values)) {
+                    $this->buildSearchFilterCriterion($bool, $key, $values);
+                    $nbFilters++;
+                } elseif(in_array(key($values), Operator::getOperators(), true)) {
                     $this->buildSearchFilterCriterion($bool, $key, $values);
                     $nbFilters++;
                 } else {
