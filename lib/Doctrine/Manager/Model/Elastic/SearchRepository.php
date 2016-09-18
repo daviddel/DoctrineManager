@@ -5,7 +5,6 @@ namespace Doctrine\Manager\Model\Elastic;
 use Doctrine\Manager\Model\Operator;
 use Doctrine\Manager\Search\SearchTrait;
 use Elastica\Filter\BoolFilter;
-use Elastica\Filter\Exists;
 use Elastica\Filter\MatchAll;
 use Elastica\Filter\Missing;
 use Elastica\Filter\Range;

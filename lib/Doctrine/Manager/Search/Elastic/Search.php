@@ -75,6 +75,19 @@ class Search extends BaseSearch implements SearchInterface
     }
 
     /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return Search
+     */
+    public function setFilterCriterion($key, $value)
+    {
+        $this->filterCriteria[$key] = $value;
+
+        return $this;
+    }
+
+    /**
      * @param string
      * @param mixed
      *
@@ -82,7 +95,7 @@ class Search extends BaseSearch implements SearchInterface
      */
     public function addFilterCriterion($key, $value)
     {
-        $this->filterCriteria[$key] = $value;
+        $this->filterCriteria[$key][] = $value;
 
         return $this;
     }
@@ -138,6 +151,19 @@ class Search extends BaseSearch implements SearchInterface
     }
 
     /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return Search
+     */
+    public function setQueryCriterion($key, $value)
+    {
+        $this->queryCriteria[$key] = $value;
+
+        return $this;
+    }
+
+    /**
      * @param string
      * @param mixed
      *
@@ -145,7 +171,7 @@ class Search extends BaseSearch implements SearchInterface
      */
     public function addQueryCriterion($key, $value)
     {
-        $this->queryCriteria[$key] = $value;
+        $this->queryCriteria[$key][] = $value;
 
         return $this;
     }
@@ -201,6 +227,19 @@ class Search extends BaseSearch implements SearchInterface
     }
 
     /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return Search
+     */
+    public function setAggsCriterion($key, $value)
+    {
+        $this->aggsCriteria[$key] = $value;
+
+        return $this;
+    }
+
+    /**
      * @param string
      * @param mixed
      *
@@ -208,7 +247,7 @@ class Search extends BaseSearch implements SearchInterface
      */
     public function addAggsCriterion($key, $value)
     {
-        $this->aggsCriteria[$key] = $value;
+        $this->aggsCriteria[$key][] = $value;
 
         return $this;
     }
