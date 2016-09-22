@@ -44,8 +44,14 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
         }
 
         foreach ($search->getCriteria() as $key => $values) {
-            foreach ($values as $value) {
-                $this->buildCriterion($qb, $key, $value);
+            if (!is_array($values)) {
+                $this->buildCriterion($qb, $key, $values);
+            } elseif(in_array(key($values), Operator::getOperators(), true)) {
+                $this->buildCriterion($qb, $key, $values);
+            } else {
+                foreach ($values as $value) {
+                    $this->buildCriterion($qb, $key, $value);
+                }
             }
         }
     }
@@ -110,7 +116,10 @@ class EntityRepository extends BaseEntityRepository implements ModelRepositoryIn
         }
 
         if (isset($criterion)) {
-            $qb->andWhere($criterion)->setParameter($param, $value);
+            $qb->andWhere($criterion);
+            if ($value !== null) {
+                $qb->setParameter($param, $value);
+            }
         }
     }
 
